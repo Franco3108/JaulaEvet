@@ -223,7 +223,7 @@
             <div class="col-xs-12 col-sm-6">
               <div class="box p-a">
                 <div class="form-group row">
-                  <label class="col-sm-2 form-control-label">Luces</label>
+                  <label class="col-sm-2 form-control-label">LUCES</label>
                   <div class="col-sm-10">
                     <label class="ui-switch ui-switch-md info m-t-xs">
                       <input id="input_led1" onchange="process_led1()"  type="checkbox" >
@@ -251,14 +251,14 @@
                   <label class="col-sm-2 form-control-label">Luces 2</label>
                   <div class="col-sm-10">
                     <label class="ui-switch ui-switch-md info m-t-xs">
-                      <input id="input_led2" onchange="process_led1()"  type="checkbox" >
+                      <input id="input_led2" onchange="process_led2()"  type="checkbox" >
                       <i></i>
                     </label>
                   </div>
                 </div>
               </div>
             </div>
-
+          </div>
 
         </div>
 
