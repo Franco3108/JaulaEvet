@@ -233,19 +233,31 @@
                 </div>
               </div>
             </div>
-			
-            <!-- text area -->
+
+            <!-- SLIDER -->
             <div class="col-xs-12 col-sm-6">
               <div class="box p-a">
                 <div class="form-group row">
-                  <label class="col-sm-2 form-control-label">Comentarios</label>
+                  <label class="col-sm-2 form-control-label">Luces</label>
+                  <input type="range" class="custom-range col-sm-10" id="customRange1">
+                </div>
+              </div>
+            </div>
+			
+            <!-- SWItCH1 -->
+            <div class="col-xs-12 col-sm-6">
+              <div class="box p-a">
+                <div class="form-group row">
+                  <label class="col-sm-2 form-control-label">Luces 2</label>
                   <div class="col-sm-10">
-                    <textarea id="textInput" name = "textInput" rows="4" cols="50">
+                    <label class="ui-switch ui-switch-md info m-t-xs">
+                      <input id="input_led2" onchange="process_led1()"  type="checkbox" >
+                      <i></i>
+                    </label>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
 
         </div>
