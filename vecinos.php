@@ -15,20 +15,15 @@ $user_id = $_SESSION['user_id'];
 $conn = mysqli_connect("localhost","admin_cursoiot","121212","admin_cursoiot");
 
 if ($conn==false){
-  echo "Hubo un problema al conectarse a María DB";
+  echo "Hubo un problema al conectarse a la Base de datos";
   die();
 }
 
-if( isset($_POST['id_to_delete']) && $_POST['id_to_delete']!="") {
-  $id_to_delete = $_POST['id_to_delete'];
-  $conn->query("DELETE FROM `admin_cursoiot`.`devices` WHERE  `devices_id`=$id_to_delete");
-}
+if( isset($_POST['nombre']) && isset($_POST['especie'])) {
 
-if( isset($_POST['serie']) && isset($_POST['alias'])) {
-
-  $alias = strip_tags($_POST['alias']);
-  $serie = strip_tags($_POST['serie']);
-  $conn->query("INSERT INTO `devices` (`devices_alias`, `devices_serie`, `devices_user_id`) VALUES ('".$alias."', '".$serie."', '".$user_id."');");
+  $alias = strip_tags($_POST['nombre']);
+  $serie = strip_tags($_POST['especie']);
+  $conn->query("INSERT INTO Historia_clinica (nombre, especie) VALUES( ('".$nombre."', '".$especie."');");
 
 }
 

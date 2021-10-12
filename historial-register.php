@@ -1,11 +1,27 @@
 <?php
-//session_start();
-//$logged = $_SESSION['logged'];
 
-//if(!$logged){
-//  echo "Ingreso no autorizado";
-//  die();
-//}
+//momento de conectarnos a db
+$conn = mysqli_connect("18.229.161.216","admin_jaula","codigo123","admin_jaula");
+
+if ($conn==false){
+  echo "Hubo un problema al conectarse a la Base de datos";
+  die();
+}
+
+if( isset($_POST['nombre']) && isset($_POST['especie'])) {
+
+  $nombre = strip_tags($_POST['nombre']);
+  $especie = strip_tags($_POST['especie']);
+  $conn->query("INSERT INTO Historia_clinica (nombre, especie) VALUES('".$nombre."', '".$especie."');");
+
+}
+
+$result = $conn->query("SELECT nombre, especie FROM `Historia_clinica`");
+$historials = $result->fetch_all(MYSQLI_ASSOC);
+
+while ($row = $result->fetch_assoc()) {
+    echo $row['classtype']."<br>";
+}
 
 ?>
 
@@ -135,7 +151,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" href data-toggle="dropdown">
                   <i class="fa fa-fw fa-plus text-muted"></i>
-                  <span>Nuevo</span>
+                  <span>New</span>
                 </a>
                 <div ui-include="'views/blocks/dropdown.new.html'"></div>
               </li>
@@ -158,7 +174,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link p-0 clear" href="#" data-toggle="dropdown">
                 <span class="avatar w-32">
-                  <img src="assets/images/fotoperfil.jpg" alt="...">
+                  <img src="assets/images/a0.jpg" alt="...">
                   <i class="on b-white bottom"></i>
                 </span>
               </a>
@@ -179,7 +195,7 @@
       <div class="app-footer">
         <div class="p-2 text-xs">
           <div class="pull-right text-muted py-1">
-            &copy; Copyright <strong>Franco</strong> <span class="hidden-xs-down">- Todos los derechos reservados</span>
+            &copy; Copyright <strong>Flatkit</strong> <span class="hidden-xs-down">- Built with Love v1.1.3</span>
             <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
           </div>
           <div class="nav">
@@ -194,87 +210,74 @@
         <!-- SECCION CENTRAL -->
         <div class="padding">
 
-          <!-- VALORES EN TIEMPO REAL -->
           <div class="row">
-            <div class="col-xs-12 col-sm-4">
-              <div class="box p-a">
-                <div class="pull-left m-r">
-                  <span class="w-48 rounded  accent">
-                    <i class="fa fa-sun-o"></i>
-                  </span>
-                </div>
-                <div class="clear">
-                  <h4 class="m-0 text-lg _300"><b id="display_temp1">-- </b><span class="text-sm"> C</span></h4>
-                  <small class="text-muted">Temperatura jaula en °C</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-6 col-sm-4">
-              <div class="box p-a">
-                <div class="pull-left m-r">
-                  <span class="w-48 rounded primary">
-                    <i class="fa fa-desktop"></i>
-                  </span>
-                </div>
-                <div class="clear">
-                  <h4 class="m-0 text-lg _300"><b id="display_temp2">-- </b><span class="text-sm"> C</span></h4>
-                  <small class="text-muted">Humedad jaula en %</small>
-                </div>
-              </div>
-            </div>
-          </div>
+            <div class="col-md-6">
+              <div class="box">
+                <div class="box-header">
 
-          <!-- SWItCH1 y 2 -->
-          <div class="row">
-            <!-- SWItCH1 -->
-            <div class="col-xs-12 col-sm-6">
-              <div class="box p-a">
-                <div class="form-group row">
-                  <label class="col-sm-2 form-control-label">LUCES</label>
-                  <div class="col-sm-10">
-                    <label class="ui-switch ui-switch-md info m-t-xs">
-                      <input id="input_led1" onchange="process_led1()"  type="checkbox" >
-                      <i></i>
-                    </label>
-                  </div>
+                  <h2>Agregar Animal</h2>
+                  <small>Ingresar datos del animality.</small>
+
+                </div>
+                <div class="box-divider m-0"></div>
+                <div class="box-body">
+
+
+                  <form role="form" method="post" target="">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Nombre</label>
+                      <input name="nombre" type="text" class="form-control" placeholder="Ej: Nombre">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Especie</label>
+                      <input name="especie" type="text" class="form-control" placeholder="Ej: Especie">
+                    </div>
+
+                    <button type="submit" class="btn white m-b">Registrar</button>
+
+                  </form>
+
+
                 </div>
               </div>
             </div>
 
-            <!-- SLIDER -->
-            <div class="col-xs-12 col-sm-6">
-              <div class="box p-a">
-                <div class="form-group row">
-                  <label class="col-sm-2 form-control-label">Luces</label>
-                  <input type="range" class="custom-range col-sm-10" id="customRange1">
-                </div>
-              </div>
-            </div>
-			
-            <!-- SWItCH1 -->
-            <div class="col-xs-12 col-sm-6">
-              <div class="box p-a">
-                <div class="form-group row">
-                  <label class="col-sm-2 form-control-label">Luces 2</label>
-                  <div class="col-sm-10">
-                    <label class="ui-switch ui-switch-md info m-t-xs">
-                      <input id="input_led2" onchange="process_led2()"  type="checkbox" >
-                      <i></i>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
+
 
         </div>
 
-        <!-- ############ PAGE END-->
+        <div class="row">
+            <div class="col-sm-6">
+              <div class="box">
+                <div class="box-header">
+                  <h2>Historial</h2>
+                </div>
+                <table class="table table-striped b-t">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Especie</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($historials as $historial) {?>
+                      <tr>
+                        <td><?php echo $historial['nombre'] ?></td>
+                        <td><?php echo $historial['especie'] ?></td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
       </div>
 
+      <!-- ############ PAGE END-->
+
     </div>
-    <!-- / -->
 
     <!-- SELECTOR DE TEMAS -->
     <div id="switcher">
@@ -500,74 +503,6 @@ function process_led2(){
     })
   }
 }
-
-
-
-
-
-
-
-
-/*
-******************************
-****** CONEXION  *************
-******************************
-*/
-
-// connect options
-const options = {
-      connectTimeout: 4000,
-
-      // Authentication
-      clientId: 'iotmc',
-      username: 'web_client',
-      password: '123456',
-
-      keepalive: 60,
-      clean: true,
-}
-
-var connected = false;
-
-// WebSocket connect url
-const WebSocket_URL = 'wss://jaulaevet.ga:8094/mqtt' //wss es cunado es seguro
-
-
-const client = mqtt.connect(WebSocket_URL, options)
-
-
-client.on('connect', () => {
-    console.log('Mqtt conectado por WS! Exito!')
-
-    client.subscribe('values', { qos: 0 }, (error) => {
-      if (!error) {
-        console.log('Suscripción exitosa!')
-      }else{
-        console.log('Suscripción fallida!')
-      }
-    })
-
-    // publish(topic, payload, options/callback)
-    client.publish('values', 'esto es un verdadero éxito', (error) => {
-      console.log(error || 'Mensaje enviado!!!')
-    })
-})
-//para recibir los mensajes que llegan //cuando recibe un mensaje 
-client.on('message', (topic, message) => {
-  console.log('Mensaje recibido bajo tópico: ', topic, ' -> ', message.toString())
-  process_msg(topic, message);
-})
-
-client.on('reconnect', (error) => {
-    console.log('Error al reconectar', error)
-})
-
-client.on('error', (error) => {
-    console.log('Error de conexión:', error)
-})
-
-
-
 
 
 
